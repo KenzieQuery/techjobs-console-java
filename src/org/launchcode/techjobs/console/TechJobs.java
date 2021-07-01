@@ -53,7 +53,7 @@ public class TechJobs {
                 System.out.println("\nSearch term: ");
                 String searchTerm = in.nextLine();
                 if (searchField.equals("all")) {
-                    printJobs(JobData.findByValue(searchField));
+                    printJobs(JobData.findByValue(searchTerm));
                 }
                 else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
@@ -100,19 +100,18 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-        if (someJobs.size() >= 1) {
-            //iterate over the ArrayList someJobs
-            for (int i = 0; i < someJobs.size(); i++) {
-                //each job is itself a HashMap. For each HashMap get and set
-                for (Map.Entry<String, String> job : someJobs.get(i).entrySet()) {
-                    //prints key and value from job
-                    System.out.println(job.getKey() + ": " + job.getValue());
-                }
-                System.out.println("************");
-            }
-        }
-        else {
+        if (someJobs.size() <= 1) {
             System.out.println("Sorry, no results for your selection. Please try again with a different selection.");
+            //iterate over the ArrayList someJobs
+        } else {
+            //each job is itself a HashMap. For each HashMap get and set
+            for (HashMap<String, String> ajob : someJobs) {
+                System.out.println("************");
+                //prints key and value from job
+                for (String jobKey: ajob.keySet()){
+                    System.out.println(jobKey + ": " + ajob.get(jobKey));
+                }
+            }
         }
     }
 }
